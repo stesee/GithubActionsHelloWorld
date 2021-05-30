@@ -20,7 +20,7 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Bump versions
       uses: SiqiLu/dotnet-bump-version@master
       with:
@@ -31,6 +31,7 @@ jobs:
     - name: "Build & test"
       run: |
           echo "done!"
+          pwd
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -38,4 +39,4 @@ jobs:
         prerelease: true
         title: "Development Build"
         files: |
-          GithubActionsHelloWorld.dll
+          ./bin/Release/net5.0/GithubActionsHelloWorld.dll
