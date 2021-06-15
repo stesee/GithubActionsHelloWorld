@@ -4,6 +4,6 @@
 
 Hellow world built with github actions
 
-    ```
-    dotnet new console
-    ```
+```
+dotnet new console
+```
