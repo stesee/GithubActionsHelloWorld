@@ -1,4 +1,5 @@
 ﻿using CliWrap;
+using FFMpegCore;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -22,10 +23,10 @@ namespace GithubActionsHelloWorld
             var inputFilePath = args[0];
             var outputFilePath = args[1];
 
-            //GlobalFFOptions.Configure(async options => options.BinaryFolder = await CalcOsSpecificFfmpegPathAsync());
+            GlobalFFOptions.Configure(async options => options.BinaryFolder = Directory.GetParent(Path.GetFullPath(await CalcOsSpecificFfmpegPathAsync())).FullName);
 
-            await FfmpegRemoveAudio(await CalcOsSpecificFfmpegPathAsync(), inputFilePath, outputFilePath);
-            // FFMpeg.Mute(inputFilePath, outputFilePath);
+            // await FfmpegRemoveAudio(await CalcOsSpecificFfmpegPathAsync(), inputFilePath, outputFilePath);
+            FFMpeg.Mute(inputFilePath, outputFilePath);
         }
 
         private static async Task<string> CalcOsSpecificFfmpegPathAsync()
@@ -73,12 +74,7 @@ namespace GithubActionsHelloWorld
 
         public static async ValueTask FfmpegRemoveAudio(string ffmpegPath, string inputFilePath, string outputFilePath)
         {
-            await Cli.Wrap(ffmpegPath).WithArguments(new[] { "-i",
-                    inputFilePath,
-                    "-c",
-                    "copy",
-                    "-an",
-                    outputFilePath }).ExecuteAsync();
+            await Cli.Wrap(ffmpegPath).WithArguments(new[] { "-i", inputFilePath, "-c", "copy", "-an", outputFilePath }).ExecuteAsync();
         }
     }
 }
