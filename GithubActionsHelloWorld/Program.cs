@@ -46,6 +46,7 @@ namespace GithubActionsHelloWorld
                     | FileAccessPermissions.GroupRead
                     | FileAccessPermissions.OtherRead
                 };
+                unixFileInfo.Refresh()
 
                 return macosFfmpegBinarySource;
             }
