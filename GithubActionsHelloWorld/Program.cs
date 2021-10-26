@@ -50,7 +50,7 @@ namespace GithubActionsHelloWorld
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return @"../../../../GithubActionsHelloWorld\ffmpebBins\macos64\ffmpeg.exe";
+                return @"../../../../GithubActionsHelloWorld\ffmpebBins\macos64\ffmpeg";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))

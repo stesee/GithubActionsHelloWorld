@@ -14,11 +14,6 @@ jobs:
         os: [macos-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
-    - uses: FedericoCarboni/setup-ffmpeg@v1
-      with:
-        # Not strictly necessary, but it may prevent rate limit
-        # errors especially on GitHub-hosted macos machines.
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
