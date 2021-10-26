@@ -7,8 +7,8 @@
     <FileVersion>1.0.1.7</FileVersion>
     <Version>1.0.1</Version>
     <PackageVersion>1.0.1</PackageVersion>
-    <PublishSingleFile>true</PublishSingleFile>
-    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <!--<PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>-->
   </PropertyGroup>
 
 </Project>
