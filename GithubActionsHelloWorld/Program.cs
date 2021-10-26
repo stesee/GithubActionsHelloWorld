@@ -1,4 +1,4 @@
-﻿using FFmpeg.NET;
+﻿using FFMpegCore;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -20,42 +20,26 @@ namespace GithubActionsHelloWorld
             var inputFilePath = args[0];
             var outputFilePath = args[1];
 
-            var inputFile = new InputFile(inputFilePath);
-            var outputFile = new OutputFile(outputFilePath);
+            GlobalFFOptions.Configure(options => options.BinaryFolder = CalcOsSpecificFfmpegPath());
 
-            string ffmpgeBinPath;
-            ffmpgeBinPath = CalcOsSpecificFfmpegPath();
-
-            var ffmpeg = new Engine(ffmpgeBinPath);
-
-            var options = new ConversionOptions
-            {
-                RemoveAudio = true
-            };
-
-            var output = await ffmpeg.ConvertAsync(inputFile, outputFile, options, default).ConfigureAwait(false);
-
-            var metadata = await ffmpeg.GetMetaDataAsync(new InputFile(output.FileInfo.FullName), default).ConfigureAwait(false);
-
-            Console.WriteLine(metadata.FileInfo.FullName);
-            Console.WriteLine(metadata);
+            FFMpeg.Mute(inputFilePath, outputFilePath);
         }
 
         private static string CalcOsSpecificFfmpegPath()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return @"../../../../GithubActionsHelloWorld\ffmpebBins\win32\ffmpeg.exe";
+                return @"../../../../GithubActionsHelloWorld\ffmpebBins\win32\";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return @"../../../../GithubActionsHelloWorld/ffmpebBins/macos64/ffmpeg";
+                return @"../../../../GithubActionsHelloWorld/ffmpebBins/macos64/";
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                var wellKnownPathOnLinuxSystems = "/usr/bin/ffmpeg";
+                var wellKnownPathOnLinuxSystems = "/usr/bin/";
                 if (File.Exists(wellKnownPathOnLinuxSystems))
                 {
                     return wellKnownPathOnLinuxSystems;
