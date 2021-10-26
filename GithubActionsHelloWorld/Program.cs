@@ -1,4 +1,5 @@
 ﻿using CliWrap;
+using Mono.Unix;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -36,14 +37,14 @@ namespace GithubActionsHelloWorld
             {
                 var ffmpegExecutable = Path.Combine(macosFfmpegBinarySource, "ffmpeg");
 
-                //var unixFileInfo = new UnixFileInfo(ffmpegExecutable)
-                //{
-                //    FileAccessPermissions = FileAccessPermissions.OtherExecute |
-                //    FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite
-                //    | FileAccessPermissions.GroupRead
-                //    | FileAccessPermissions.OtherRead
-                //};
-                //unixFileInfo.Refresh();
+                var unixFileInfo = new UnixFileInfo(ffmpegExecutable)
+                {
+                    FileAccessPermissions = FileAccessPermissions.OtherExecute |
+                    FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite
+                    | FileAccessPermissions.GroupRead
+                    | FileAccessPermissions.OtherRead
+                };
+                unixFileInfo.Refresh();
 
                 // await SetPermissionsAsync(ffmpegExecutable, "+x");
 
