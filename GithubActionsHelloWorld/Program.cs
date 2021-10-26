@@ -1,5 +1,4 @@
 ﻿using CliWrap;
-using FFMpegCore;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -23,10 +22,7 @@ namespace GithubActionsHelloWorld
             var inputFilePath = args[0];
             var outputFilePath = args[1];
 
-            GlobalFFOptions.Configure(async options => options.BinaryFolder = Directory.GetParent(Path.GetFullPath(await CalcOsSpecificFfmpegPathAsync())).FullName);
-
-            // await FfmpegRemoveAudio(await CalcOsSpecificFfmpegPathAsync(), inputFilePath, outputFilePath);
-            FFMpeg.Mute(inputFilePath, outputFilePath);
+            await FfmpegRemoveAudio(await CalcOsSpecificFfmpegPathAsync(), inputFilePath, outputFilePath);
         }
 
         private static async Task<string> CalcOsSpecificFfmpegPathAsync()
@@ -49,7 +45,7 @@ namespace GithubActionsHelloWorld
                 //};
                 //unixFileInfo.Refresh();
 
-                await SetPermissionsAsync(ffmpegExecutable, "+x");
+                // await SetPermissionsAsync(ffmpegExecutable, "+x");
 
                 return ffmpegExecutable;
             }
