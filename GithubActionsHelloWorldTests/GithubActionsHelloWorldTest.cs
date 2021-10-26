@@ -20,6 +20,11 @@ namespace GithubActionsHelloWorldTests
             var inputPath = "../../../small.mp4";
             var outputPath = "../../../smallNoSound.mp4";
 
+            if (File.Exists(outputPath))
+            {
+                File.Delete(outputPath);
+            }
+
             await Program.Main(new[] { inputPath, outputPath });
 
             Assert.True(File.Exists(outputPath));

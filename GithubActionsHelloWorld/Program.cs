@@ -1,5 +1,4 @@
-﻿using FFMpegCore;
-using Mono.Unix;
+﻿using CliWrap;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -23,32 +22,35 @@ namespace GithubActionsHelloWorld
             var inputFilePath = args[0];
             var outputFilePath = args[1];
 
-            GlobalFFOptions.Configure(options => options.BinaryFolder = CalcOsSpecificFfmpegPath());
+            //GlobalFFOptions.Configure(async options => options.BinaryFolder = await CalcOsSpecificFfmpegPathAsync());
 
-            FFMpeg.Mute(inputFilePath, outputFilePath);
+            await FfmpegRemoveAudio(await CalcOsSpecificFfmpegPathAsync(), inputFilePath, outputFilePath);
+            // FFMpeg.Mute(inputFilePath, outputFilePath);
         }
 
-        private static string CalcOsSpecificFfmpegPath()
+        private static async Task<string> CalcOsSpecificFfmpegPathAsync()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return @"../../../../GithubActionsHelloWorld\ffmpebBins\win32\";
+                return Path.Combine(@"../../../../GithubActionsHelloWorld\ffmpebBins\win32\", "ffmpeg.exe");
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var ffmpegExecutable = Path.Combine(macosFfmpegBinarySource, "ffmpeg");
 
-                var unixFileInfo = new UnixFileInfo(ffmpegExecutable)
-                {
-                    FileAccessPermissions = FileAccessPermissions.OtherExecute |
-                    FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite
-                    | FileAccessPermissions.GroupRead
-                    | FileAccessPermissions.OtherRead
-                };
-                unixFileInfo.Refresh();
+                //var unixFileInfo = new UnixFileInfo(ffmpegExecutable)
+                //{
+                //    FileAccessPermissions = FileAccessPermissions.OtherExecute |
+                //    FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite
+                //    | FileAccessPermissions.GroupRead
+                //    | FileAccessPermissions.OtherRead
+                //};
+                //unixFileInfo.Refresh();
 
-                return macosFfmpegBinarySource;
+                await SetPermissionsAsync(ffmpegExecutable, "+x");
+
+                return ffmpegExecutable;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
@@ -62,6 +64,21 @@ namespace GithubActionsHelloWorld
             }
 
             throw new NotSupportedException("Your Os was not recognized / is not supported");
+        }
+
+        public static async ValueTask SetPermissionsAsync(string filePath, string permissions)
+        {
+            await Cli.Wrap("/bin/bash").WithArguments(new[] { "-c", $"chmod {permissions} {filePath}" }).ExecuteAsync();
+        }
+
+        public static async ValueTask FfmpegRemoveAudio(string ffmpegPath, string inputFilePath, string outputFilePath)
+        {
+            await Cli.Wrap(ffmpegPath).WithArguments(new[] { "-i",
+                    inputFilePath,
+                    "-c",
+                    "copy",
+                    "-an",
+                    outputFilePath }).ExecuteAsync();
         }
     }
 }
