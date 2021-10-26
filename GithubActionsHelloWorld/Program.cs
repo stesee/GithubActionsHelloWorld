@@ -1,4 +1,5 @@
 ﻿using FFMpegCore;
+using Mono.Unix;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
@@ -8,6 +9,8 @@ namespace GithubActionsHelloWorld
 {
     public class Program
     {
+        private const string macosFfmpegBinarySource = @"../../../../GithubActionsHelloWorld/ffmpebBins/macos64/";
+
         public static async Task Main(string[] args)
         {
             if (args?.Length != 2)
@@ -34,7 +37,17 @@ namespace GithubActionsHelloWorld
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return @"../../../../GithubActionsHelloWorld/ffmpebBins/macos64/";
+                var ffmpegExecutable = Path.Combine(macosFfmpegBinarySource, "ffmpeg");
+
+                var unixFileInfo = new UnixFileInfo(ffmpegExecutable)
+                {
+                    FileAccessPermissions = FileAccessPermissions.OtherExecute |
+                    FileAccessPermissions.UserRead | FileAccessPermissions.UserWrite
+                    | FileAccessPermissions.GroupRead
+                    | FileAccessPermissions.OtherRead
+                };
+
+                return macosFfmpegBinarySource;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
