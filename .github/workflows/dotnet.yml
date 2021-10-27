@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ main, FfmpegPoc ]
+    branches: [ main, FfmpegPoc, FfmpegPocUnsignedBin ]
   pull_request:
-    branches: [ main, FfmpegPoc ]
+    branches: [ main, FfmpegPoc, FfmpegPocUnsignedBin ]
 
 jobs:
   build:
