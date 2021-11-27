@@ -34,7 +34,7 @@ jobs:
     needs: build 
     steps:
     - name: Publish
-      run: dotnet publish --configuration Release
+      run: dotnet publish .\GithubActionsHelloWorld --configuration Release
     - uses: papeloto/action-zip@v1
       with:
           files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
