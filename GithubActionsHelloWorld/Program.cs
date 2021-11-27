@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace GithubActionsHelloWorld
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
         }
