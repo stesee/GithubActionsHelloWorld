@@ -46,7 +46,7 @@ jobs:
     - name: NugetPush
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.*nupkg --skip-duplicate --include-symbols -p:SymbolPackageFormat=snupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.*nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
     - uses: papeloto/action-zip@v1
       with:
           files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
@@ -80,7 +80,7 @@ jobs:
     - name: NugetPush
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.*nupkg --skip-duplicate --include-symbols -p:SymbolPackageFormat=snupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.*nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
     - uses: papeloto/action-zip@v1
       with:
           files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
