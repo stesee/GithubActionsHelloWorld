@@ -46,8 +46,8 @@ jobs:
     - name: NugetPush
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.snupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.snupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
     - uses: papeloto/action-zip@v1
       with:
           files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
@@ -80,8 +80,7 @@ jobs:
     - name: NugetPush
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.snupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
     - uses: papeloto/action-zip@v1
       with:
           files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
