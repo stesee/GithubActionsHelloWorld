@@ -12,6 +12,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>GithubActionsHelloWorld</PackageId>
+    <PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
