@@ -1,43 +1,57 @@
-name: .NET
+name: .NET build and test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, automated-nuget.org-publish ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, automated-nuget.org-publish ]
 
 jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
-    - name: Bump versions
-      uses: SiqiLu/dotnet-bump-version@master
-      with:
-        version_files: "**/*.csproj"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --configuration Release
     - name: "Build & test"
       run: |
           echo "done!"
           pwd
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build 
+    if: github.ref == 'refs/heads/master'
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
     - name: Publish
       run: dotnet publish --configuration Release --no-restore
+    - name: NugetPush
+      run: |
+          ls ./GithubActionsHelloWorld/bin/Release
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.*nupkg --skip-duplicate --include-symbols -p:SymbolPackageFormat=snupkg --api-key ${{secrets.NUGET_TOKEN}} --source https://int.nugettest.org/
     - uses: papeloto/action-zip@v1
       with:
-          files: ./bin/Release/net5.0/win-x64/publish/
+          files: ./GithubActionsHelloWorld/bin/Release/net6.0/publish/
           dest: GithubActionsHelloWorld.zip
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:

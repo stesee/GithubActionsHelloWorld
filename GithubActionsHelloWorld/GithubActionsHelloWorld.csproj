@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <Version Condition="'$(GITHUB_RUN_NUMBER)' != ''">1.0.$(GITHUB_RUN_NUMBER)</Version>
+    <Version Condition="'$(GITHUB_RUN_NUMBER)' == ''">0.0.1</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <PackageVersion>$(Version)</PackageVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageId>GithubActionsHelloWorld</PackageId>
+  </PropertyGroup>
+
+</Project>
