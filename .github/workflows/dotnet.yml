@@ -1,7 +1,8 @@
 name: .NET build and test
 env:
   LAST_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-  CURRENT_VERSION: 1.0.${{ GITHUB_RUN_NUMBER }}
+  CURRENT_MAJOR_AND_MINOR_VERSION: 1.0
+  CURRENT_VERSION: 1.0.${{ github.run_number }}
 
 on:
   push:
