@@ -12,8 +12,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [windows-latest]
     steps:
+    - name: Install-Office365Suite
+      run:  Install-Script -Name Install-Office365Suite -force
+    - name: setup office
+      run: .\Install-Office365Suite.ps1
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
