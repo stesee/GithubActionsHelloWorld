@@ -15,12 +15,10 @@
 		<PackageId>GithubActionsHelloWorld</PackageId>
 		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="GitInfo" Version="2.2.0" />
-	  <PackageReference Include="SixLabors.ImageSharp" Version="2.0.0" />
+	  <PackageReference Include="SixLabors.ImageSharp" Version="2.1.0" />
 	  <PackageReference Include="ZXing.Net" Version="0.16.8" />
 	</ItemGroup>
 
