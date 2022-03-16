@@ -1,8 +1,8 @@
-﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.PixelFormats;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using ZXing.Common;
-using ZXing.Rendering;
 
 namespace GithubActionsHelloWorld
 {
@@ -10,23 +10,41 @@ namespace GithubActionsHelloWorld
     {
         public static async Task Main(string[] args)
         {
-            var barcodeWriter = new ZXing.BarcodeWriterPixelData
+            CreateExcelDocument();
+        }
+
+        private static void CreateExcelDocument()
+        {
+            Microsoft.Office.Interop.Excel.Application excelApplication = null;
+
+            try
             {
-                Format = ZXing.BarcodeFormat.CODE_128,
-                Options = new EncodingOptions
+                excelApplication = new
+                    Microsoft.Office.Interop.Excel.Application();
+                Workbook excelWorkBook = excelApplication.Workbooks.Add();
+                Worksheet worksheet = (Worksheet)excelWorkBook.Worksheets[1];
+                worksheet.Cells[1, 1] = "Product Id";
+                worksheet.Cells[1, 2] = "Product Name";
+                worksheet.Cells[2, 1] = "1";
+                worksheet.Cells[2, 2] = "Lenovo Laptop";
+                worksheet.Cells[3, 1] = "2";
+                worksheet.Cells[3, 2] = "DELL Laptop";
+                var path = Path.GetTempFileName() + ".xlsx";
+                Console.WriteLine(path);
+                excelWorkBook.SaveAs(Path.Combine(path));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                if (excelApplication != null)
                 {
-                    Height = 300,
-                    Width = 300,
-                },
-                Renderer = new PixelDataRenderer
-                {
+                    excelApplication.Quit();
+                    Marshal.FinalReleaseComObject(excelApplication);
                 }
-            };
-
-            var pixelData = barcodeWriter.Write("Hallo Barcode");
-
-            using (var image = Image.LoadPixelData<Rgba32>(pixelData.Pixels, 300, 300))
-                await image.SaveAsBmpAsync("barcode.bmp");
+            }
         }
     }
 }
