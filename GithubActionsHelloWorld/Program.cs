@@ -13,14 +13,14 @@ namespace GithubActionsHelloWorld
             CreateExcelDocument();
         }
 
-        private static void CreateExcelDocument()
+        public static string CreateExcelDocument()
         {
-            Microsoft.Office.Interop.Excel.Application excelApplication = null;
+            Application excelApplication = null;
 
             try
             {
                 excelApplication = new
-                    Microsoft.Office.Interop.Excel.Application();
+                    Application();
                 Workbook excelWorkBook = excelApplication.Workbooks.Add();
                 Worksheet worksheet = (Worksheet)excelWorkBook.Worksheets[1];
                 worksheet.Cells[1, 1] = "Product Id";
@@ -32,10 +32,12 @@ namespace GithubActionsHelloWorld
                 var path = Path.GetTempFileName() + ".xlsx";
                 Console.WriteLine(path);
                 excelWorkBook.SaveAs(Path.Combine(path));
+                return path;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return ex.Message;
             }
             finally
             {

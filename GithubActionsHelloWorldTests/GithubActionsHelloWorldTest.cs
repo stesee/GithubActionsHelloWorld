@@ -1,5 +1,4 @@
 using GithubActionsHelloWorld;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace GithubActionsHelloWorldTests
@@ -7,10 +6,12 @@ namespace GithubActionsHelloWorldTests
     public class GithubActionsHelloWorldTest
     {
         [Fact]
-        public async Task Main_ShouldRunWithoutError()
+        public void Main_ShouldRunWithoutError()
         {
             var args = new string[] { "WrongParameterCount" };
-            await Program.Main(args);
+            var path = Program.CreateExcelDocument();
+
+            Assert.True(System.IO.File.Exists(path));
         }
     }
 }
