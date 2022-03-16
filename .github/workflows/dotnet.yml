@@ -14,10 +14,12 @@ jobs:
       matrix:
         os: [windows-latest]
     steps:
-    - name: Install-Office365Suite
-      run:  Install-Script -Name Install-Office365Suite -force
     - name: setup office
-      run:  Install-Office365Suite.ps1
+      run: |
+           get-date
+           Install-Script -Name Install-Office365Suite -force
+           Install-Office365Suite.ps1
+      shell: powershell   
     - uses: actions/checkout@v2
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
