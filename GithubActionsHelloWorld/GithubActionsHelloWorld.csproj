@@ -16,11 +16,12 @@
 		<PackageId>GithubActionsHelloWorld</PackageId>
 		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="SixLabors.ImageSharp" Version="2.0.0" />
-	  <PackageReference Include="ZXing.Net" Version="0.16.8" />
+		<PackageReference Include="SixLabors.ImageSharp" Version="2.0.0" />
+		<PackageReference Include="ZXing.Net" Version="0.16.8" />
 	</ItemGroup>
 
 </Project>
