@@ -9,7 +9,7 @@ namespace GithubActionsHelloWorldTests
         [Fact]
         public async Task Main_ShouldRunWithoutError()
         {
-            var args = new string[] { "WrongParameterCount" };
+            var args = new string[] { "SomeParameter" };
             await Program.Main(args);
         }
     }
