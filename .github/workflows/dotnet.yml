@@ -24,7 +24,7 @@ jobs:
     
     - name: Fiddeling with secrets
       env: 
-          NUGET_TOKEN_EXISTS: ${{ secrets.SECRET_TOKEN }}
+          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TOKEN }}
       if:  env.NUGET_TOKEN_EXISTS != ''
       run: echo "NUGET_TOKEN_EXISTS exists - implementation of secret checking working on all runners"
     - name: Build
