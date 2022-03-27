@@ -21,6 +21,8 @@ jobs:
         dotnet-version: 6.0.x
     - name: Restore dependencies
       run: dotnet restore
+    - if: ${{ secrets.NUGET_TEST_TOKEN != '' }}
+      run: echo 'This step will only run if the secret has a value set.'
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
