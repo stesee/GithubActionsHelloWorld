@@ -83,7 +83,7 @@ jobs:
       if:  env.NUGET_TOKEN_EXISTS != ''
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          # dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TEST_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TEST_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
