@@ -47,9 +47,12 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: NugetPush
+      env: 
+          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TOKEN }}
+      if:  env.NUGET_TOKEN_EXISTS != ''
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
+          dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -75,9 +78,12 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: NugetPush
+      env:
+          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TEST_TOKEN }}
+      if:  env.NUGET_TOKEN_EXISTS != ''
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
-          # dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://api.nuget.org/v3/index.json
+          # dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TEST_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
     - uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
