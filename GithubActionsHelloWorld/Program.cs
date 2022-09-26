@@ -28,9 +28,6 @@ namespace GithubActionsHelloWorld
                 document.Pages.Add(pageWithImage);
                 var xgr = XGraphics.FromPdfPage(document.Pages[pageIndex]);
 
-                //    var memorystream = new MemoryStream(pageImage.Bytes);
-                //memorystream.Position = 0;
-                //var xImage = XImage.FromStream(() => memorystream);
                 var xImage = XImage.FromStream(() => File.OpenRead(pageImages[pageIndex]));
                 xgr.DrawImage(xImage, 0, 0);
             }
