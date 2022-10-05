@@ -18,9 +18,8 @@ namespace GithubActionsHelloWorld
             GlobalFontSettings.FontResolver = new FontResolver();
 
             var document = new PdfDocument();
-            using var fileStream = File.OpenRead(args[0]);
-
             var tempImageFiles = TiffToBitmap(args[0]);
+            
             try
             {
                 for (int pageIndex = 0; pageIndex < tempImageFiles.Count; pageIndex++)
