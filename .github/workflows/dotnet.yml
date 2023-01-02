@@ -39,6 +39,7 @@ jobs:
       run:
         shell: wsl-bash {0} # https://github.com/marketplace/actions/setup-wsl#default-shell
     steps:
+    - uses: actions/checkout@v3
     - uses: Vampire/setup-wsl@v1
       with:
         distribution: Ubuntu-22.04
@@ -48,10 +49,10 @@ jobs:
     - name: Dependencies
       run: |
         pwd # DEBUG
-        ls ../ # DEBUG
+        ls # DEBUG
         sudo apt update
         sudo apt install dotnet6 zip -y
-        dotnet test ../ --configuration Release
+        dotnet test --configuration Release
   
   deployRelease:
     if: github.ref == 'refs/heads/main'
