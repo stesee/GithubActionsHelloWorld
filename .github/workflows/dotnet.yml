@@ -32,10 +32,30 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
+  windows-wsl-ubuntu-22_04:
+    name: WSL [Ubuntu 22.04]
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: wsl-bash {0} # https://github.com/marketplace/actions/setup-wsl#default-shell
+    steps:
+    - uses: Vampire/setup-wsl@v1
+      with:
+        distribution: Ubuntu-22.04
+    - name: Dependencies
+      run: |
+        pwd # DEBUG
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+        sudo apt update
+        sudo apt install dotnet6 zip
+        nvm install 18
+        nvm use 18
+        dotnet test
+  
   deployRelease:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: build 
+    needs: [build, windows-wsl-ubuntu-22_04]
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -66,7 +86,7 @@ jobs:
   deployTest:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
-    needs: build 
+    needs: [build, windows-wsl-ubuntu-22_04]
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
