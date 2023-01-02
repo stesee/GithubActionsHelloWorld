@@ -51,8 +51,6 @@ jobs:
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
         sudo apt update
         sudo apt install dotnet6 zip -y
-        nvm install 18
-        nvm use 18
         dotnet test --configuration Release
   
   deployRelease:
