@@ -48,11 +48,10 @@ jobs:
     - name: Dependencies
       run: |
         pwd # DEBUG
-        ls # DEBUG
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+        ls ../ # DEBUG
         sudo apt update
         sudo apt install dotnet6 zip -y
-        dotnet test --configuration Release
+        dotnet test ../ --configuration Release
   
   deployRelease:
     if: github.ref == 'refs/heads/main'
