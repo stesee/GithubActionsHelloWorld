@@ -48,6 +48,7 @@ jobs:
     - name: Dependencies
       run: |
         pwd # DEBUG
+        ls # DEBUG
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
         sudo apt update
         sudo apt install dotnet6 zip -y
