@@ -25,15 +25,15 @@ jobs:
       run: dotnet restore
     
     - name: Fiddeling with secrets
-      if:  secrets.NUGET_TOKEN != ''
-      run: echo "secrets.NUGET_TOKEN exists - implementation of secret checking working on all runners"
+      if:  env.NUGET_TOKEN_EXISTS != ''
+      run: echo "NUGET_TOKEN_EXISTS exists - implementation of secret checking working on all runners"
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
   deployRelease:
-    if: github.ref == 'refs/heads/main' && secrets.NUGET_TOKEN != ''
+    if: github.ref == 'refs/heads/main' && env.NUGET_TOKEN_EXISTS != ''
     runs-on: ubuntu-latest
     needs: build 
     steps:
@@ -61,7 +61,7 @@ jobs:
           ./GithubActionsHelloWorld/bin/Release/*.snupkg
 
   deployTest:
-    if: github.ref != 'refs/heads/main' && secrets.NUGET_TEST_TOKEN != ''
+    if: github.ref != 'refs/heads/main' && env.NUGET_TOKEN_TEST_EXISTS != ''
     runs-on: ubuntu-latest
     needs: build 
     steps:
