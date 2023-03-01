@@ -2,6 +2,8 @@ name: .NET build and test
 env:
   CURRENT_VERSION: 1.0.${{ github.run_number }}
   LAST_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+  NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TOKEN }}
+  NUGET_TOKEN_TEST_EXISTS: ${{ secrets.NUGET_TEST_TOKEN }}
 
 on:
   push:
@@ -23,8 +25,6 @@ jobs:
       run: dotnet restore
     
     - name: Fiddeling with secrets
-      env: 
-          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TOKEN }}
       if:  env.NUGET_TOKEN_EXISTS != ''
       run: echo "NUGET_TOKEN_EXISTS exists - implementation of secret checking working on all runners"
     - name: Build
@@ -33,7 +33,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
 
   deployRelease:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' and env.NUGET_TOKEN_EXISTS != ''
     runs-on: ubuntu-latest
     needs: build 
     steps:
@@ -47,9 +47,6 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: NugetPush
-      env: 
-          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TOKEN }}
-      if:  env.NUGET_TOKEN_EXISTS != ''
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
           dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
@@ -64,7 +61,7 @@ jobs:
           ./GithubActionsHelloWorld/bin/Release/*.snupkg
 
   deployTest:
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' and NUGET_TOKEN_TEST_EXISTS != ''
     runs-on: ubuntu-latest
     needs: build 
     steps:
@@ -78,9 +75,6 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: NugetPush
-      env:
-          NUGET_TOKEN_EXISTS: ${{ secrets.NUGET_TEST_TOKEN }}
-      if:  env.NUGET_TOKEN_EXISTS != ''
       run: |
           ls ./GithubActionsHelloWorld/bin/Release
           dotnet nuget push ./GithubActionsHelloWorld/bin/Release/*.nupkg --skip-duplicate --api-key ${{secrets.NUGET_TEST_TOKEN}} --source https://apiint.nugettest.org/v3/index.json
