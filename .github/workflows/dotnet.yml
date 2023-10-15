@@ -55,7 +55,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.TOKEN }}
       if:  env.GITHUB_TOKEN != ''
       run: |
-          gh release create ${{env.CURRENT_VERSION}} ./GithubActionsHelloWorld/bin/Release/*.*nupkg --prerelease
+          gh release create ${{env.CURRENT_VERSION}} ./GithubActionsHelloWorld/bin/Release/*.*nupkg --generate-notes
   deployTest:
     if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
@@ -83,5 +83,5 @@ jobs:
         GITHUB_TOKEN: ${{ github.TOKEN }}
       if:  env.GITHUB_TOKEN != ''
       run: |
-          gh release create ${{env.CURRENT_VERSION}} ./GithubActionsHelloWorld/bin/Release/*.*nupkg --prerelease
+          gh release create ${{env.CURRENT_VERSION}} ./GithubActionsHelloWorld/bin/Release/*.*nupkg --prerelease --generate-notes
 
