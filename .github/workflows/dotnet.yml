@@ -20,6 +20,10 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: ${{ matrix.dotnet }}.0.x
+    - name: Create temporary global.json
+      run: "echo '{\"sdk\":{\"version\": \"${{ steps.setup.outputs.dotnet-version }}\"}}' > ./global.json"
+    - name: Debug global.json
+      run: "cat ./global.json"
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
