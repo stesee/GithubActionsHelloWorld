@@ -22,11 +22,11 @@ jobs:
           7.0.x
           8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./GithubActionsHelloWorld
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./GithubActionsHelloWorld --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release
+      run: dotnet test ./GithubActionsHelloWorld --no-build --verbosity normal --configuration Release
 
   deployRelease:
     if: github.ref == 'refs/heads/main'
