@@ -1,30 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<OutputType>Exe</OutputType>
-		<TargetFramework>net6.0</TargetFramework>
-		<Version Condition="'$(CURRENT_VERSION)' != ''">$(CURRENT_VERSION)</Version>
-		<Version Condition="'$(CURRENT_VERSION)' == ''">0.0.1</Version>
-		<AssemblyVersion>$(Version)</AssemblyVersion>
-		<FileVersion>$(Version)</FileVersion>
-		<PackageVersion>$(Version)</PackageVersion>
-		<InformationalVersion Condition="'$(GITHUB_SHA)' != ''">$(GITHUB_SHA)</InformationalVersion>
-		<InformationalVersion Condition="'$(GITHUB_SHA)' == ''">DevBuild</InformationalVersion>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<PackageId>GithubActionsHelloWorld</PackageId>
-		<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
-		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-		<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
-	</PropertyGroup>
+  <PropertyGroup>
+	<OutputType>Exe</OutputType>
+	<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+	<Version Condition="'$(CURRENT_VERSION)' != ''">$(CURRENT_VERSION)</Version>
+	<Version Condition="'$(CURRENT_VERSION)' == ''">0.0.1</Version>
+	<AssemblyVersion>$(Version)</AssemblyVersion>
+	<FileVersion>$(Version)</FileVersion>
+	<PackageVersion>$(Version)</PackageVersion>
+	<InformationalVersion Condition="'$(GITHUB_SHA)' != ''">$(GITHUB_SHA)</InformationalVersion>
+	<InformationalVersion Condition="'$(GITHUB_SHA)' == ''">DevBuild</InformationalVersion>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<IncludeSymbols>true</IncludeSymbols>
+	<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	<PackageId>GithubActionsHelloWorld</PackageId>
+	<PackageReleaseNotes>$(LAST_COMMIT_MESSAGE)</PackageReleaseNotes>
+	<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+	<ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
 
-	<ItemGroup>
+  <ItemGroup>
 
 
-		<PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
-		<PackageReference Include="ZXing.Net" Version="0.16.9" />
+	<PackageReference Include="SixLabors.ImageSharp" Version="3.1.2" />
+	<PackageReference Include="ZXing.Net" Version="0.16.9" />
 
-	</ItemGroup>
+  </ItemGroup>
 
 </Project>
