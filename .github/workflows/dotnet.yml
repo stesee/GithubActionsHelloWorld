@@ -25,7 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore --framework net${{ matrix.dotnet }}.0
     - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release --framework net${{ matrix.dotnet }}.0
+      run: dotnet test --no-build --verbosity normal --configuration Release
 
   deployRelease:
     if: github.ref == 'refs/heads/main'
