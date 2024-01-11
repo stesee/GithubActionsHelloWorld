@@ -21,7 +21,7 @@ jobs:
       with:
         dotnet-version: ${{ matrix.dotnet }}.0.x
     - name: Create temporary global.json
-      run: "echo '{\"sdk\":{\"version\": \"${{ matrix.dotnet }}.0.0\"}}' > ./global.json"
+      run: "echo '{\"sdk\":{\"version\": \"${{ matrix.dotnet }}.0.0\" ,\"rollForward\": \"latestMajor\" }}' > ./global.json"
     - name: Debug global.json
       run: "cat ./global.json"
     - name: Restore dependencies
