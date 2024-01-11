@@ -21,12 +21,14 @@ jobs:
           6.0.x
           7.0.x
           8.0.x
+    - run: ls
+    - run: pwd
     - name: Restore dependencies
-      run: dotnet restore ./GithubActionsHelloWorld
+      run: dotnet restore GithubActionsHelloWorld
     - name: Build
-      run: dotnet build ./GithubActionsHelloWorld --configuration Release --no-restore
+      run: dotnet build GithubActionsHelloWorld --configuration Release --no-restore
     - name: Test
-      run: dotnet test ./GithubActionsHelloWorld --no-build --verbosity normal --configuration Release
+      run: dotnet test GithubActionsHelloWorld --no-build --verbosity normal --configuration Release
 
   deployRelease:
     if: github.ref == 'refs/heads/main'
