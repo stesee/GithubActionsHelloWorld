@@ -18,9 +18,9 @@ namespace GithubActionsHelloWorldTests
         [Fact]
         public void ShouldDoTheSameThingOnEachGHARunner()
         {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("en-US");
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-            string expected = "9/2/2010 12:00:00 AM";
+            string expected = "09/02/2010 00:00:00";
             DateTime parsedDate = DateTime.Parse(expected);
             var actual = parsedDate.ToString();
 
