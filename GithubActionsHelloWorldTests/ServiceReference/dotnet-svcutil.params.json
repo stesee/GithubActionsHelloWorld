@@ -1,0 +1,38 @@
+{
+  "providerId": "Microsoft.Tools.ServiceModel.Svcutil",
+  "version": "2.1.0",
+  "options": {
+    "inputs": [
+      "http://www.gcomputer.net/webservices/dilbert.asmx?WSDL"
+    ],
+    "namespaceMappings": [
+      "*, ServiceReference"
+    ],
+    "outputFile": "Reference.cs",
+    "references": [
+      "C:\\Users\\Stefan\\Documents\\source\\repo\\GithubActionsHelloWorld\\GithubActionsHelloWorldTests\\bin\\Debug\\net8.0\\GithubActionsHelloWorld.dll",
+      "Microsoft.Extensions.ObjectPool, {Microsoft.Extensions.ObjectPool, 8.0.10}",
+      "Microsoft.TestPlatform.CommunicationUtilities, {Microsoft.TestPlatform.TestHost, 17.12.0}",
+      "Microsoft.TestPlatform.CoreUtilities, {Microsoft.TestPlatform.ObjectModel, 17.12.0}",
+      "Microsoft.TestPlatform.CrossPlatEngine, {Microsoft.TestPlatform.TestHost, 17.12.0}",
+      "Microsoft.TestPlatform.PlatformAbstractions, {Microsoft.TestPlatform.ObjectModel, 17.12.0}",
+      "Microsoft.TestPlatform.Utilities, {Microsoft.TestPlatform.TestHost, 17.12.0}",
+      "Microsoft.VisualStudio.CodeCoverage.Shim, {Microsoft.CodeCoverage, 17.12.0}",
+      "Microsoft.VisualStudio.TestPlatform.Common, {Microsoft.TestPlatform.TestHost, 17.12.0}",
+      "Microsoft.VisualStudio.TestPlatform.ObjectModel, {Microsoft.TestPlatform.ObjectModel, 17.12.0}",
+      "Newtonsoft.Json, {Newtonsoft.Json, 13.0.1}",
+      "SixLabors.ImageSharp, {SixLabors.ImageSharp, 3.1.6}",
+      "System.Reflection.Metadata, {System.Reflection.Metadata, 1.6.0}",
+      "System.Security.Cryptography.Pkcs, {System.Security.Cryptography.Pkcs, 8.0.1}",
+      "System.Security.Cryptography.Xml, {System.Security.Cryptography.Xml, 8.0.2}",
+      "testhost, {Microsoft.TestPlatform.TestHost, 17.12.0}",
+      "xunit.abstractions, {xunit.abstractions, 2.0.3}",
+      "xunit.assert, {xunit.assert, 2.9.2}",
+      "xunit.core, {xunit.extensibility.core, 2.9.2}",
+      "xunit.execution.dotnet, {xunit.extensibility.execution, 2.9.2}",
+      "zxing, {ZXing.Net, 0.16.9}"
+    ],
+    "targetFramework": "net8.0",
+    "typeReuseMode": "All"
+  }
+}

@@ -1,5 +1,7 @@
 using GithubActionsHelloWorld;
+using ServiceReference;
 using System;
+using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -25,6 +27,38 @@ namespace GithubActionsHelloWorldTests
             var actual = parsedDate.ToString();
 
             Assert.Equal(expected, actual);
+        }
+
+        // used these steps to generate the soap client
+        // dotnet tool install --global dotnet-svcutil
+        // dotnet-svcutil http://www.gcomputer.net/webservices/dilbert.asmx?WSDL
+        // get more soap endpoints at https://stackoverflow.com/questions/1958048/public-soap-web-services
+
+        [Fact]
+        public async Task ShouldDailyDilbertAsync()
+        {
+            var client = new DilbertSoapClient(DilbertSoapClient.EndpointConfiguration.DilbertSoap);
+
+            var actual = await client.DailyDilbertAsync(DateTime.Now);
+
+            Assert.NotEmpty(actual.Body.DailyDilbertResult);
+        }
+
+        [Fact]
+        public async Task ShouldDailyDilbertWithCustomMessageSizeAsync()
+        {
+            var binding = new BasicHttpBinding
+            {
+                // That will trigger an exception on using the client (e.g. client.DailyDilbertAsync). MaxReceivedMessageSize should probably be an int instead of an long and/or I expect an exception while setting the message size.
+                MaxReceivedMessageSize = (long)int.MaxValue + 1
+            };
+            var remoteAddress = new EndpointAddress("http://www.gcomputer.net/webservices/dilbert.asmx");
+
+            var client = new DilbertSoapClient(binding, remoteAddress);
+
+            var actual = await client.DailyDilbertAsync(DateTime.Now);
+
+            Assert.NotEmpty(actual.Body.DailyDilbertResult);
         }
     }
 }
