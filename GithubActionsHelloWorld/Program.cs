@@ -1,5 +1,7 @@
 ﻿using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.PixelFormats;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using ZXing.Common;
 using ZXing.Rendering;
@@ -24,9 +26,11 @@ namespace GithubActionsHelloWorld
             };
 
             var pixelData = barcodeWriter.Write("Hallo Barcode");
-
+            var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "barcode.bmp");
             using (var image = Image.LoadPixelData<Rgba32>(pixelData.Pixels, 300, 300))
-                await image.SaveAsBmpAsync("barcode.bmp");
+                await image.SaveAsBmpAsync(path);
+
+            Console.WriteLine("Barcode saved to " + path);
         }
     }
 }
