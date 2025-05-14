@@ -33,7 +33,7 @@ namespace GithubActionsHelloWorldTests
         {
             //  does not trigger https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs4014?f1url=%3FappId%3Droslyn%26k%3Dk(CS4014) or https://microsoft.github.io/vs-threading/analyzers/VSTHRD110.html
             var bla = File.WriteAllTextAsync("test.txt", "Hello World");
-            Assert.True(bla!=null);
+            Assert.NotNull(bla);
         }
     }
 }
