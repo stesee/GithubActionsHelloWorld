@@ -52,6 +52,7 @@ jobs:
     - name: Deploy via WebDeploy
       run: |
         # If you have a publish profile file, create it from secret
+        mkdir -p GithubActionsHelloWordWeb/Properties/PublishProfiles
         echo '${{ secrets.WEBDEPLOY_PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/WebDeploy.pubxml
         dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
       # To deploy from your dev machine with publish profile:
