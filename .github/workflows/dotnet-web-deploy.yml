@@ -50,4 +50,4 @@ jobs:
         echo '${{ secrets.PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/FolderProfile.pubxml
     
     - name: Publish Web App
-      run: dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish --no-build --pubxml FolderProfile
+      run: dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish --no-build -p:PublishProfile=FolderProfile
