@@ -35,7 +35,7 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
         // Act
         var response = await _client.GetAsync("/api/hello");
 
-      // Assert
+        // Assert
         response.EnsureSuccessStatusCode();
         Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType?.ToString());
 
