@@ -26,7 +26,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
 
   deploy-webdeploy:
-    runs-on: ubuntu-latest  # WebDeploy typically works better on Windows runners
+    runs-on: windows-latest  # WebDeploy typically works better on Windows runners
     needs: build-and-test
     if: github.ref == 'refs/heads/AspNetHelloWorld' || github.ref == 'refs/heads/main'
     
