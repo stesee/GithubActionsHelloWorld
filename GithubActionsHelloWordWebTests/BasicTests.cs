@@ -52,8 +52,8 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
     [Fact]
     public async Task Get_NonExistentEndpoint_ReturnsNotFound()
     {
-  // Act
-     var response = await _client.GetAsync("/nonexistent");
+        // Act
+        var response = await _client.GetAsync("/nonexistent");
 
         // Assert
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
