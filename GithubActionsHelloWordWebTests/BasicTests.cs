@@ -23,7 +23,7 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
 
         // Assert
     response.EnsureSuccessStatusCode();
-   Assert.Equal("text/plain; charset=utf-8", response.Content.Headers.ContentType?.ToString());
+        Assert.Equal("text/plain; charset=utf-8", response.Content.Headers.ContentType?.ToString());
    
         var content = await response.Content.ReadAsStringAsync();
         Assert.Equal("Hello World from ASP.NET Core!", content);
