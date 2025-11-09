@@ -2,10 +2,10 @@ name: .NET build and test
 env:
   CURRENT_VERSION: 1.0.${{ github.run_number }}
   LAST_COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
   push:
-  pull_request:
 
 jobs:
   build:
@@ -27,7 +27,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal --configuration Release
 
   deployRelease:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     needs: build 
     permissions:
@@ -61,7 +61,7 @@ jobs:
             exit 1
           }
   deployTest:
-    if: github.ref != 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     needs: build 
     steps:
