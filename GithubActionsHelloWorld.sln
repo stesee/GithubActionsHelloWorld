@@ -3,14 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GithubActionsHelloWorld", "GithubActionsHelloWorld\GithubActionsHelloWorld.csproj", "{61D51FF5-54B5-4D4D-8374-0476FF605F57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubActionsHelloWorld", "GithubActionsHelloWorld\GithubActionsHelloWorld.csproj", "{9A7903DF-69B7-4575-9D0D-BA7BDFDBDACF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GithubActionsHelloWorldTests", "GithubActionsHelloWorldTests\GithubActionsHelloWorldTests.csproj", "{1756945F-FE1B-498C-897C-743DD7B791DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubActionsHelloWorldTests", "GithubActionsHelloWorldTests\GithubActionsHelloWorldTests.csproj", "{BFBB48CD-388A-48F9-A97B-9D829E82356B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A0700FEC-48D8-490C-8136-B200F4317767}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubActionsHelloWordWeb", "GithubActionsHelloWordWeb\GithubActionsHelloWordWeb.csproj", "{44D78C5C-EF75-45E9-073C-09B43907AB9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubActionsHelloWordWebTests", "GithubActionsHelloWordWebTests\GithubActionsHelloWordWebTests.csproj", "{928F752C-78A0-2463-8590-2E494C6F4C09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet-web-deploy.yml = .github\workflows\dotnet-web-deploy.yml
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
-		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -19,19 +23,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61D51FF5-54B5-4D4D-8374-0476FF605F57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61D51FF5-54B5-4D4D-8374-0476FF605F57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61D51FF5-54B5-4D4D-8374-0476FF605F57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61D51FF5-54B5-4D4D-8374-0476FF605F57}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1756945F-FE1B-498C-897C-743DD7B791DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1756945F-FE1B-498C-897C-743DD7B791DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1756945F-FE1B-498C-897C-743DD7B791DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1756945F-FE1B-498C-897C-743DD7B791DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A7903DF-69B7-4575-9D0D-BA7BDFDBDACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A7903DF-69B7-4575-9D0D-BA7BDFDBDACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A7903DF-69B7-4575-9D0D-BA7BDFDBDACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A7903DF-69B7-4575-9D0D-BA7BDFDBDACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFBB48CD-388A-48F9-A97B-9D829E82356B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFBB48CD-388A-48F9-A97B-9D829E82356B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFBB48CD-388A-48F9-A97B-9D829E82356B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFBB48CD-388A-48F9-A97B-9D829E82356B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D78C5C-EF75-45E9-073C-09B43907AB9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D78C5C-EF75-45E9-073C-09B43907AB9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D78C5C-EF75-45E9-073C-09B43907AB9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D78C5C-EF75-45E9-073C-09B43907AB9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{928F752C-78A0-2463-8590-2E494C6F4C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{928F752C-78A0-2463-8590-2E494C6F4C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{928F752C-78A0-2463-8590-2E494C6F4C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{928F752C-78A0-2463-8590-2E494C6F4C09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {DF7E6DBA-1CE0-4A5B-932A-0759477DD349}
 	EndGlobalSection
 EndGlobal

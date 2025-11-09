@@ -1,0 +1,60 @@
+name: .NET Build and Deploy
+
+on:
+  push:
+    branches: [ "AspNetHelloWorld", "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+ 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+    
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --configuration Release
+
+  deploy-webdeploy:
+    runs-on: windows-latest  # WebDeploy typically works better on Windows runners
+    needs: build-and-test
+    if: github.ref == 'refs/heads/AspNetHelloWorld' || github.ref == 'refs/heads/main'
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build Web App
+      run: dotnet build --no-restore --configuration Release GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj
+ 
+    - name: Publish Web App
+      run: dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish --no-build
+      # To do the same on your dev machine, run:
+      # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish
+    
+    - name: Deploy via WebDeploy
+      run: |
+        # If you have a publish profile file, create it from secret
+        mkdir -p GithubActionsHelloWordWeb/Properties/PublishProfiles
+        echo '${{ secrets.WEBDEPLOY_PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/WebDeploy.pubxml
+        dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
+      # To deploy from your dev machine with publish profile:
+      # Place the .pubxml file in Properties/PublishProfiles/ folder
+      # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
