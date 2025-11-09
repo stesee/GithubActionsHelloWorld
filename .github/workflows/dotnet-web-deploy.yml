@@ -55,6 +55,29 @@ jobs:
         mkdir -p GithubActionsHelloWordWeb/Properties/PublishProfiles
         echo '${{ secrets.WEBDEPLOY_PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/WebDeploy.pubxml
         dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
-      # To deploy from your dev machine with publish profile:
-      # Place the .pubxml file in Properties/PublishProfiles/ folder
-      # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
+        # To deploy from your dev machine with publish profile:
+        # Place the .pubxml file in Properties/PublishProfiles/ folder
+        # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
+        #
+        # Exampl WebDeploy.pubxml publish profile content:
+        #     <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+        #   <PropertyGroup>
+        # 	<WebPublishMethod>MSDeploy</WebPublishMethod>
+        # 	<LastUsedBuildConfiguration>Release</LastUsedBuildConfiguration>
+        # 	<LastUsedPlatform>Any CPU</LastUsedPlatform>
+        # 	<SiteUrlToLaunchAfterPublish>http://example.runasp.net/</SiteUrlToLaunchAfterPublish>
+        # 	<LaunchSiteAfterPublish>True</LaunchSiteAfterPublish>
+        # 	<ExcludeApp_Data>False</ExcludeApp_Data>
+        # 	<ProjectGuid>12345678-1234-1234-1234-123456789012</ProjectGuid>
+        # 	<MSDeployServiceURL>userName.siteasp.net</MSDeployServiceURL>
+        # 	<DeployDefaultTarget>WebPublishMethod</DeployDefaultTarget>
+        # 	<RemoteSitePhysicalPath />
+        # 	<SkipExtraFilesOnServer>True</SkipExtraFilesOnServer>
+        # 	<MSDeployPublishMethod>WMSVC</MSDeployPublishMethod>
+        # 	<EnableMSDeployBackup>True</EnableMSDeployBackup>
+        # 	<UserName>userName</UserName>
+        # 	<Password>Secret</Password>
+        # 	<PublishUrl>userName.siteasp.net</PublishUrl>
+        # 	<DeployIisAppPath>userName</DeployIisAppPath>
+        #   </PropertyGroup>
+        # </Project>
