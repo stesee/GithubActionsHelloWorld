@@ -18,15 +18,15 @@ jobs:
         
     - name: Restore dependencies
       run: dotnet restore
-      
+    
     - name: Build
       run: dotnet build --no-restore --configuration Release
     
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
 
-  deploy-web-app:
-    runs-on: ubuntu-latest
+  deploy-webdeploy:
+    runs-on: ubuntu-latest  # WebDeploy typically works better on Windows runners
     needs: build-and-test
     if: github.ref == 'refs/heads/AspNetHelloWorld' || github.ref == 'refs/heads/main'
     
@@ -44,10 +44,16 @@ jobs:
     - name: Build Web App
       run: dotnet build --no-restore --configuration Release GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj
  
-    - name: Create publish profile
-      run: |
-        mkdir -p GithubActionsHelloWordWeb/Properties/PublishProfiles
-        echo '${{ secrets.PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/FolderProfile.pubxml
-    
     - name: Publish Web App
-      run: dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish --no-build -p:PublishProfile=FolderProfile
+      run: dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish --no-build
+      # To do the same on your dev machine, run:
+      # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj --configuration Release --output ./publish
+    
+    - name: Deploy via WebDeploy
+      run: |
+        # If you have a publish profile file, create it from secret
+        echo '${{ secrets.WEBDEPLOY_PUBLISH_PROFILE }}' > GithubActionsHelloWordWeb/Properties/PublishProfiles/WebDeploy.pubxml
+        dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
+      # To deploy from your dev machine with publish profile:
+      # Place the .pubxml file in Properties/PublishProfiles/ folder
+      # dotnet publish GithubActionsHelloWordWeb/GithubActionsHelloWordWeb.csproj /p:PublishProfile=WebDeploy --configuration Release
